@@ -1,36 +1,29 @@
 class Dotquad < Formula
   desc "IP lookup, DNS, WHOIS and domain checks from the terminal, using the Dotquad API."
   homepage "https://dotquad.app"
-  version "0.1.0"
-  if OS.mac?
-    if Hardware::CPU.arm?
-      url "https://github.com/dotquad/cli/releases/download/v0.1.0/dotquad-aarch64-apple-darwin.tar.xz"
-      sha256 "946003b1df77a0a455bc0e73bce7aa50b5b19a0700fb41f7faebeacde1cfa014"
-    end
-    if Hardware::CPU.intel?
-      url "https://github.com/dotquad/cli/releases/download/v0.1.0/dotquad-x86_64-apple-darwin.tar.xz"
-      sha256 "82873aa2d5a067fcc05cbd0afccbcc232f851c0a7895aa1f4d4cf89a3d6cb6ca"
-    end
+  version "0.1.1"
+  if OS.mac? && Hardware::CPU.arm?
+    url "https://github.com/dotquad/cli/releases/download/v0.1.1/dotquad-aarch64-apple-darwin.tar.xz"
+    sha256 "e399c9896d416d2aa05c767af8ba6ea0ad8d43e86bf4604021e1c9e9a53fb447"
   end
   if OS.linux?
     if Hardware::CPU.arm?
-      url "https://github.com/dotquad/cli/releases/download/v0.1.0/dotquad-aarch64-unknown-linux-gnu.tar.xz"
-      sha256 "435db146d51ba2a537e87934506367df5328f410009bb3881014a4962611799e"
+      url "https://github.com/dotquad/cli/releases/download/v0.1.1/dotquad-aarch64-unknown-linux-gnu.tar.xz"
+      sha256 "af7f221a3f1abdd2549fef4473077202fdac3f4cbc811570acc23c93ef5e36ce"
     end
     if Hardware::CPU.intel?
-      url "https://github.com/dotquad/cli/releases/download/v0.1.0/dotquad-x86_64-unknown-linux-gnu.tar.xz"
-      sha256 "c9dca62843ee622bb584edc874cbc4de0129b41cedb109748aa4016644d840e6"
+      url "https://github.com/dotquad/cli/releases/download/v0.1.1/dotquad-x86_64-unknown-linux-gnu.tar.xz"
+      sha256 "13aa5947833863ed4785b7c743970ae95f8243d095b1dd37473ebedb4978b57c"
     end
   end
   license "MIT"
 
   BINARY_ALIASES = {
-    "aarch64-apple-darwin": {},
+    "aarch64-apple-darwin":      {},
     "aarch64-unknown-linux-gnu": {},
-    "x86_64-apple-darwin": {},
-    "x86_64-pc-windows-gnu": {},
-    "x86_64-unknown-linux-gnu": {}
-  }
+    "x86_64-pc-windows-gnu":     {},
+    "x86_64-unknown-linux-gnu":  {},
+  }.freeze
 
   def target_triple
     cpu = Hardware::CPU.arm? ? "aarch64" : "x86_64"
@@ -49,9 +42,6 @@ class Dotquad < Formula
 
   def install
     if OS.mac? && Hardware::CPU.arm?
-      bin.install "dotquad"
-    end
-    if OS.mac? && Hardware::CPU.intel?
       bin.install "dotquad"
     end
     if OS.linux? && Hardware::CPU.arm?
